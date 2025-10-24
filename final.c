@@ -7,27 +7,37 @@
 #include <time.h>
     
 //EW and AB
-int life(void){
-    if(lives == 6){
+print_hangman(int lives) {
+    if (lives >= 6) {
         printf("_____\n|    |\n|    |\n|    \n|    \n|    |_______\n");
-    }else if(lives == 5){
+    } else if (lives == 5) {
         printf("_____\n|    |\n|    |\n|    o\n|    \n|    |_______\n");
-    }else if(lives == 4){
+    } else if (lives == 4) {
         printf("_____\n|    |\n|    |\n|    o\n|   / \n|    |_______\n");
-    }else if(lives == 3){
+    } else if (lives == 3) {
         printf("_____\n|    |\n|    |\n|    o\n|   /| \n|   |_______\n");
-    }else if(lives == 2){
+    } else if (lives == 2) {
         printf("_____\n|    |\n|    |\n|    o\n|   /|\\ \n|    |_______\n");
-    }else if(lives == 1){
+    } else if (lives == 1) {
         printf("_____\n|    |\n|    |\n|    o\n|   /|\\ \n|   /  \n|_______\n");
-    }else{
+    } else {
         printf("_____\n|    |\n|    |\n|    o\n|   /|\\ \n|   / \\ \n|_______\n");
+    }
+}
+}
+void choose_random_word() {
+    srand(time(NULL));
+	char words[60][30] = {"potato", "wagon", "cooperate", "seek", "sulphur", "center", "bounce", "ruin", "interference", "autonomy", "examination", "roof", "market", "pop", "light", "shock", "skin", "donor", "element", "execution", "vessel", "contrast", "coding", "python", "boring", "octopus"};
+	int num = rand() % 8;
+    char word[30] = words[num];
+    char display[30];
+    for(int i = 0; i < strlen(word); i++) {
+        display[i] = '_';
     }
 }
 
 //EG and RA
 char display_word(char guess){
-    char display = '_';
     srand(time(NULL));
 	char words[60][30] = {"potato", "wagon", "cooperate", "seek", "sulphur", "center", "bounce", "ruin", "interference", "autonomy", "examination", "roof", "market", "pop", "light", "shock", "skin", "donor", "element", "execution", "vessel", "contrast", "coding", "python", "boring", "octopus"};
 	int num = rand() % 8;
@@ -38,12 +48,16 @@ char display_word(char guess){
     if(guess == guessed_letters){
         printf("Nice try");
     }
-    for(int i = 0; i < strlen(word); i++){
-        if(guess = word[i]) {
-            printf("%c", word[i]);
-        }else{
-                printf("_");
-        }            
+ bool display_word(char guess); {
+    bool correct = false;
+    for (int i = 0; i < strlen(word); i++) {
+        if (word[i] == guess) {
+            display[i] = guess;
+            correct = true;
+        }
+    }
+    return correct;
+}
 
     return display;
 }
