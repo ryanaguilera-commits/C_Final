@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <time.h>
-
+    //EW
 void life(int lives) {
     if (lives >= 6) {
         printf("_____\n|    |\n|    |\n|    \n|    \n|_______\n");
@@ -21,20 +21,19 @@ void life(int lives) {
         printf("_____\n|    |\n|    |\n|    o\n|   /|\\ \n|   / \\ \n|_______\n");
     }
 }
-
+    //AB
 int main(void) {
     srand((unsigned)time(NULL));
-
 	char words[60][30] = {"potato", "wagon", "cooperate", "seek", "sulphur", "center", "bounce", "ruin", "interference", "autonomy", "examination", "roof", "market", "pop", "light", "shock", "skin", "donor", "element", "execution", "vessel", "contrast", "coding", "python", "boring", "octopus"};
 
     const int word_count = sizeof(words) / sizeof(words[0]);
     const char *word = words[rand() % word_count];
     const int word_len = (int)strlen(word);
-
+    //EW
     bool guessed[26] = { false };
     int lives = 6;
     bool won = false;
-
+    //EG
     while (lives > 0 && !won) {
         life(lives);
         printf("You have %d lives left.\n", lives);
@@ -60,7 +59,7 @@ int main(void) {
         char space_holder[64];
         char guess = '\0';
         printf("Please guess a letter: \n");
-
+        //RA
         if (!fgets(space_holder, sizeof(space_holder), stdin)) {
             printf("Bro stop playing try again.\n");
             continue;
@@ -80,7 +79,7 @@ int main(void) {
             printf("Stop playing try again.\n");
             continue;
         }
-
+        //EG
         int alphabet  = guess - 'a';
         if (alphabet < 0 || alphabet >= 26) {
             printf("Stop playing try again.\n");
@@ -109,7 +108,7 @@ int main(void) {
         }
         printf("\n");
     }
-
+    //EW
     if (lives == 0) {
         life(0);
         printf("Sorry, the word was %s. \n", word);
