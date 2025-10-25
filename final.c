@@ -1,151 +1,121 @@
-//RA AB EW EG Final C Project
-
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <time.h>
-int lives = 5;
-//EW and AB
-<<<<<<< HEAD
-int life(void){
 
-    if(lives == 6){
-        printf("_____\n|    |\n|    |\n|    \n|    \n|_______\n");
-    }else if(lives == 5){
-        printf("_____\n|    |\n|    |\n|    o\n|    \n|_______\n");
-    }else if(lives == 4){
-        printf("_____\n|    |\n|    |\n|    o\n|   / \n|_______\n");
-    }else if(lives == 3){
-        printf("_____\n|    |\n|    |\n|    o\n|   /| \n|_______\n");
-    }else if(lives == 2){
-        printf("_____\n|    |\n|    |\n|    o\n|   /|\\ \n|_______\n");
-    }else if(lives == 1){
-=======
-print_hangman(int lives) {
+void life(int lives) {
     if (lives >= 6) {
-        printf("_____\n|    |\n|    |\n|    \n|    \n|    |_______\n");
+        printf("_____\n|    |\n|    |\n|    \n|    \n|_______\n");
     } else if (lives == 5) {
-        printf("_____\n|    |\n|    |\n|    o\n|    \n|    |_______\n");
+        printf("_____\n|    |\n|    |\n|    o\n|    \n|_______\n");
     } else if (lives == 4) {
-        printf("_____\n|    |\n|    |\n|    o\n|   / \n|    |_______\n");
+        printf("_____\n|    |\n|    |\n|    o\n|   / \n|_______\n");
     } else if (lives == 3) {
-        printf("_____\n|    |\n|    |\n|    o\n|   /| \n|   |_______\n");
+        printf("_____\n|    |\n|    |\n|    o\n|   /| \n|_______\n");
     } else if (lives == 2) {
-        printf("_____\n|    |\n|    |\n|    o\n|   /|\\ \n|    |_______\n");
+        printf("_____\n|    |\n|    |\n|    o\n|   /|\\ \n|_______\n");
     } else if (lives == 1) {
->>>>>>> 0fe943adea1f376b27ceb6643d7284d5d2a8d63c
         printf("_____\n|    |\n|    |\n|    o\n|   /|\\ \n|   /  \n|_______\n");
     } else {
         printf("_____\n|    |\n|    |\n|    o\n|   /|\\ \n|   / \\ \n|_______\n");
     }
-    
-    return 0;
 }
-<<<<<<< HEAD
-char guessed_letters[26];
-int guessed_count = 0;
 
+int main(void) {
+    srand((unsigned)time(NULL));
 
-char display_word(){
-    char display = '_';
-    char guess;
-    printf("Please guess a letter");
-    scanf("%c", &guess);
-=======
-}
-void choose_random_word() {
-    srand(time(NULL));
 	char words[60][30] = {"potato", "wagon", "cooperate", "seek", "sulphur", "center", "bounce", "ruin", "interference", "autonomy", "examination", "roof", "market", "pop", "light", "shock", "skin", "donor", "element", "execution", "vessel", "contrast", "coding", "python", "boring", "octopus"};
-	int num = rand() % 8;
-    char word[30] = words[num];
-    char display[30];
-    for(int i = 0; i < strlen(word); i++) {
-        display[i] = '_';
-    }
-}
 
-//EG and RA
-char display_word(char guess){
->>>>>>> 0fe943adea1f376b27ceb6643d7284d5d2a8d63c
-    srand(time(NULL));
-	char words[60][30] = {"potato", "wagon", "cooperate", "seek", "sulphur", "center", "bounce", "ruin", "interference", "autonomy", "examination", "roof", "market", "pop", "light", "shock", "skin", "donor", "element", "execution", "vessel", "contrast", "coding", "python", "boring", "octopus"};
-	int num = rand() % 8;
-    int word_count = sizeof(words) / sizeof(words[0]);
-    int selection = rand() % word_count;
-    char *word = words[selection];
-    guessed_letters[guessed_count] = guess;
-    if(guess == guessed_letters){
-        printf("Nice try");
-    }
-<<<<<<< HEAD
-    for(int i = 0; i < strlen(word); i++){
-        if(guess == word[i]) {
-            printf("%c", word[i]);
-        }else{
-                printf("_");
-        }            
-=======
- bool display_word(char guess); {
-    bool correct = false;
-    for (int i = 0; i < strlen(word); i++) {
-        if (word[i] == guess) {
-            display[i] = guess;
-            correct = true;
+    const int word_count = sizeof(words) / sizeof(words[0]);
+    const char *word = words[rand() % word_count];
+    const int word_len = (int)strlen(word);
+
+    bool guessed[26] = { false };
+    int lives = 6;
+    bool won = false;
+
+    while (lives > 0 && !won) {
+        life(lives);
+        printf("You have %d lives left.\n", lives);
+
+        bool all_guessed = true;
+        printf("Word: ");
+        for (int i = 0; i < word_len; i++) {
+            char c = word[i];
+            if (c >= 'a' && c <= 'z' && guessed[c - 'a']) {
+                putchar(c);
+            } else {
+                putchar('_');
+                all_guessed = false;
+            }
         }
-    }
-    return correct;
-}
->>>>>>> 0fe943adea1f376b27ceb6643d7284d5d2a8d63c
+        printf("\n");
 
-    return display;
-}
-}
-
-// EW putting the lives and 
-bool did_guess_all_letters(const char *word, const bool guessed_letters[26]) {
-    for (int i = 0; i < strlen(word); i++) {
-        if (!guessed_letters[word[i] - 'a']) {
-            return false;
+        if (all_guessed) {
+            won = true;
+            break;
         }
-    }
-    while(lives > 0){
-        display_word();
-    }
-    return true;
-}  
 
-int main(void){
-    life();
-    
-    while(lives >= 1){
-    printf("You have %d lives left.", lives);
-    display_word();
-    char guess; 
-    printf("Guess a letter - \n");
-    scanf("%s", guess);
-    life();
+        char space_holder[64];
+        char guess = '\0';
+        printf("Please guess a letter: \n");
 
-    if(guess == false){
-        printf("Stop wasting my time.");
-        sys.exit();
-        guessed_letters.append(guess);
-    if(guess in word){
-        printf("Correct.");
-        life();
-    }else if{
-        lives -= 1;
-        printf("Incorrect.");
-        life();
-    }else if(lives == 0){
-        printf("you lost");
-        printf("You don't have any more guesses, you lose. The word was %s", word);
-        life();
-    }else{
-        printf("Congratulations, you won with %d lives left!", lives);
-        sys.exit();
+        if (!fgets(space_holder, sizeof(space_holder), stdin)) {
+            printf("Bro stop playing try again.\n");
+            continue;
+        }
+
+        for (size_t i = 0; space_holder[i] != '\0'; i++) {
+            if (space_holder[i] >= 'A' && space_holder[i] <= 'Z') {
+                guess = (char)(space_holder[i] - 'A' + 'a');
+                break;
+            } else if (space_holder[i] >= 'a' && space_holder[i] <= 'z') {
+                guess = space_holder[i];
+                break;
+            }
+        }
+
+        if (guess == '\0') {
+            printf("Stop playing try again.\n");
+            continue;
+        }
+
+        int alphabet  = guess - 'a';
+        if (alphabet < 0 || alphabet >= 26) {
+            printf("Stop playing try again.\n");
+            continue;
+        }
+
+        if (guessed[alphabet]) {
+            printf("You already guessed '%c'. Try a different letter.\n", guess);
+            continue;
+        }
+
+        guessed[alphabet] = true;
+
+        bool correct = false;
+        for (int i = 0; i < word_len; i++) {
+            if (word[i] == guess) {
+                correct = true;
+            }
+        }
+
+        if (correct) {
+            printf("Correct!\n");
+        } else {
+            printf("Incorrect :c \n");
+            lives--;
+        }
+        printf("\n");
     }
+
+    if (lives == 0) {
+        life(0);
+        printf("Sorry, the word was %s. \n", word);
+    } else {
+        printf("Congrats you had %d lives left\n", lives);
+    }
+
     return 0;
-    }
-    }
 }
